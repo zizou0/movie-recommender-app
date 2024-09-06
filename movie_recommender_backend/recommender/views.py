@@ -5,8 +5,11 @@ import joblib
 import json
 import numpy as np
 import re
+import os
+from django.conf import settings
 
-
+# content_similarity_matrix = joblib.load(os.path.join(settings.BASE_DIR, '..', 'models', 'content_similarity_matrix.pkl'))
+# svd_model = joblib.load(os.path.join(settings.BASE_DIR, '..', 'models', 'svd_model.pkl'))
 
 
 
