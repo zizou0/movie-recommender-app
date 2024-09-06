@@ -16,7 +16,7 @@ svd_model = joblib.load(os.path.join(settings.BASE_DIR, '..', 'models', 'svd_mod
 # Load precomputed models
 #content_similarity_matrix = joblib.load("/Users/benedictzuzi/Documents/movie-recommender/models/content_similarity_matrix.pkl")
 #svd_model = joblib.load("/Users/benedictzuzi/Documents/movie-recommender/models/svd_model.pkl")
-file_path_movies = "/Users/benedictzuzi/Documents/movie-recommender/data/movies.dat"
+file_path_movies = os.path.join(settings.BASE_DIR, '..', 'data', 'movies.dat')
 
 
 # Load your movies DataFrame at the module level to be accessible within the view
