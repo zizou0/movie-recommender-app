@@ -29,7 +29,6 @@ SECRET_KEY = "django-insecure-$cq0hktslr(dbq$y%bprx=$vr7um237vefz!ft(p!ns2_sa^1o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -147,4 +146,4 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-movie-recommender-app.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'my-movie-recommender-app.herokuapp.com', 'my-movie-recommender-app-7173b622ddfc.herokuapp.com']
