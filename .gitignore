@@ -19,3 +19,8 @@ Thumbs.db
 
 # Ignore environment variable files
 .env
+
+# Ignore files too large for github
+*.pkl
+*.dat
+*.csv

@@ -8,15 +8,25 @@ import re
 import os
 from django.conf import settings
 
-content_similarity_matrix = joblib.load(os.path.join(settings.BASE_DIR, '..', 'models', 'content_similarity_matrix.pkl'))
-svd_model = joblib.load(os.path.join(settings.BASE_DIR, '..', 'models', 'svd_model.pkl'))
+#content_similarity_matrix = joblib.load(os.path.join(settings.BASE_DIR, '..', 'models', 'content_similarity_matrix.pkl'))
+#svd_model = joblib.load(os.path.join(settings.BASE_DIR, '..', 'models', 'svd_model.pkl'))
+
+import gzip
+import pickle
+
+# Load compressed pkl file
+with gzip.open(os.path.join(settings.BASE_DIR, '..', 'models', 'svd_model.pkl.gz'), 'rb') as f:
+    svd_model = joblib.load(f)
 
 
-
+with gzip.open(os.path.join(settings.BASE_DIR, '..', 'models', 'content_similarity_matrix.pkl.gz'), 'rb') as f:
+    content_similarity_matrix = joblib.load(f)
+    
+file_path_movies = os.path.join(settings.BASE_DIR, '..', 'data', 'movies.dat.gz')
 # Load precomputed models
 #content_similarity_matrix = joblib.load("/Users/benedictzuzi/Documents/movie-recommender/models/content_similarity_matrix.pkl")
 #svd_model = joblib.load("/Users/benedictzuzi/Documents/movie-recommender/models/svd_model.pkl")
-file_path_movies = os.path.join(settings.BASE_DIR, '..', 'data', 'movies.dat')
+#file_path_movies = os.path.join(settings.BASE_DIR, '..', 'data', 'movies.dat')
 
 
 # Load your movies DataFrame at the module level to be accessible within the view

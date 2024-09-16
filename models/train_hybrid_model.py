@@ -11,18 +11,25 @@ from surprise.model_selection import train_test_split
 from surprise import accuracy
 import os
 import joblib
+import gzip
+import pickle
 
 
-ratings = '../data/ratings.dat'
-movies = '../data/movies.dat'
+ratings = '../data/ratings.dat.gz'
+movies = '../data/movies.dat.gz'
 script_dir = os.path.dirname(os.path.abspath(__file__))
-file_path_ratings = os.path.join(script_dir, ratings)
-file_path_movies = os.path.join(script_dir, movies)
+file_path_ratings_big = os.path.join(script_dir, ratings)
+file_path_movies_big = os.path.join(script_dir, movies)
+
+# with gzip.open(file_path_movies_big, 'rb') as f:
+#     file_path_movies = f.readlines()
+
+# with gzip.open(file_path_ratings_big, 'rb') as f:
+#     file_path_ratings = f.readlines()
 
 
-ratings_df = pd.read_csv(file_path_ratings, sep='::', engine='python',  names=['UserID', 'MovieID', 'Rating', 'Timestamp'])
-
-movies_df = pd.read_csv(file_path_movies, sep='::', engine='python', names=['MovieID', 'Title', 'Genres'], encoding='latin1')
+ratings_df = pd.read_csv(file_path_ratings_big, sep='::', engine='python',  names=['UserID', 'MovieID', 'Rating', 'Timestamp'])
+movies_df = pd.read_csv(file_path_movies_big, sep='::', engine='python', names=['MovieID', 'Title', 'Genres'], encoding='latin1')
 
 # Extract the year using regex and create a new column 'Year'
 movies_df['Year'] = movies_df['Title'].str.extract(r'\((\d{4})\)')
@@ -119,10 +126,14 @@ best_svd_model.fit(trainset)
 
 # Step 6: Save the Models
 
-joblib.dump(content_similarity_matrix,  os.path.join(script_dir, '../models/content_similarity_matrix.pkl'))
-joblib.dump(best_svd_model, os.path.join(script_dir, '../models/svd_model.pkl'))
+# joblib.dump(content_similarity_matrix,  os.path.join(script_dir, '../models/content_similarity_matrix.pkl'))
+# joblib.dump(best_svd_model, os.path.join(script_dir, '../models/svd_model.pkl'))
 
-
+with gzip.open(os.path.join(script_dir, '../models/content_similarity_matrix.pkl.gz'), 'wb') as f:
+    joblib.dump(content_similarity_matrix, f)
+    
+with gzip.open(os.path.join(script_dir, '../models/svd_model.pkl.gz'), 'wb') as f:
+    joblib.dump(best_svd_model, f)
 
 
 
